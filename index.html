@@ -7,20 +7,25 @@
   <title>Sneha Banda | Personal Portfolio</title>
 <link href="https://fonts.cdnfonts.com/css/aqua-grotesque" rel="stylesheet">
                   <style>
+  <style>
     body {
-font-family: 'Aqua Grotesque', sans-serif;
+      font-family: 'Aqua Grotesque', sans-serif;
       margin: 0;
       padding: 0;
       color: #333;
       background-color: #f9f9f9;
+      scroll-behavior: smooth;
     }
-                                                
 
     header {
       background-color: #006d77;
       color: white;
       padding: 20px;
       text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     header h1 {
@@ -35,19 +40,29 @@ font-family: 'Aqua Grotesque', sans-serif;
 
     nav {
       background-color: #005f6b;
-      padding: 10px;
+      padding: 15px;
       text-align: center;
+      position: sticky;
+      top: 70px;
+      z-index: 5;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    nav a {
+    nav button {
+      background-color: #005f6b;
       color: white;
-      text-decoration: none;
+      border: none;
       margin: 0 15px;
-      font-size: 1em;
+      font-size: 1.2em;
+      padding: 10px;
+      cursor: pointer;
+      font-family: 'Aqua Grotesque', sans-serif; /* Added font family here */
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
-    nav a:hover {
-      text-decoration: underline;
+    nav button:hover {
+      background-color: #003d42;
+      transform: scale(1.1);
     }
 
     section {
@@ -56,6 +71,16 @@ font-family: 'Aqua Grotesque', sans-serif;
       padding: 20px;
       background-color: white;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+      display: none;
+    }
+
+    section.active {
+      opacity: 1;
+      transform: translateY(0);
+      display: block;
     }
 
     section h2 {
@@ -93,6 +118,22 @@ font-family: 'Aqua Grotesque', sans-serif;
       margin: 0;
       font-size: 0.9em;
     }
+
+    /* Fade-in effect */
+    .fadeIn {
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 
@@ -100,16 +141,15 @@ font-family: 'Aqua Grotesque', sans-serif;
 
   <header>
     <h1>Sneha Banda</h1>
-    
   </header>
 
   <nav>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#volunteering">Volunteering</a>
+    <button onclick="showSection('experience')">Experience</button>
+    <button onclick="showSection('education')">Education</button>
+    <button onclick="showSection('volunteering')">Volunteering</button>
   </nav>
 
-  <section id="experience">
+  <section id="experience" class="section fadeIn">
     <h2>Experience</h2>
 
     <div class="card">
@@ -140,7 +180,7 @@ font-family: 'Aqua Grotesque', sans-serif;
     </div>
   </section>
 
-  <section id="education">
+  <section id="education" class="section fadeIn">
     <h2>Education</h2>
 
     <div class="card">
@@ -156,7 +196,7 @@ font-family: 'Aqua Grotesque', sans-serif;
     </div>
   </section>
 
-  <section id="volunteering">
+  <section id="volunteering" class="section fadeIn">
     <h2>Volunteering</h2>
 
     <div class="card">
@@ -170,6 +210,32 @@ font-family: 'Aqua Grotesque', sans-serif;
     <p>&copy; 2024 Sneha Banda. All Rights Reserved.</p>
   </footer>
 
+  <script>
+    // Function to show the selected section and hide others
+    function showSection(sectionId) {
+      // Hide all sections
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        section.classList.remove('active');
+        section.classList.remove('fadeIn');
+      });
+
+      // Show the selected section
+      const activeSection = document.getElementById(sectionId);
+      activeSection.classList.add('active');
+      activeSection.classList.add('fadeIn');
+
+      // Scroll to the top of the page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Default section to show
+    window.onload = function () {
+      showSection('experience');
+    };
+  </script>
+
 </body>
 
 </html>
+
